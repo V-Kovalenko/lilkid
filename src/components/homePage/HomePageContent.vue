@@ -48,7 +48,7 @@ onMounted(() => {
 <template>
   <div class="novelties">
     <div class="novelties__header">
-      <h1 class="novelties__h1">Новинки</h1>
+      <h1 class="novelties__h1">123</h1>
     </div>
 
 
