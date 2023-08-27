@@ -1,0 +1,19 @@
+@import 'base.css';
+@import "_reset.css";
+@import "_typography.scss";
+@import "color.scss";
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  /*background-image: url("@/assets/images/mainImage.png");*/
+  /*background-color: #ecc798;*/
+  min-height: 100vh; /* Задайте желаемую высоту контейнера */
+  background-size: cover; /* Автоматически масштабирует фоновое изображение */
+  background-position: center; /* Центрирует фоновое изображение */
+  background-repeat: no-repeat; /* Отключает повторение фонового изображения */
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
