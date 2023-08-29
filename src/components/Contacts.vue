@@ -3,7 +3,7 @@ import {ref} from "vue";
 
 const contentCards = ref([
   {
-    image: new URL("@/assets/images/contacts/address.jpg", import.meta.url),
+    image: new URL("@/assets/images/contacts/address.png", import.meta.url),
     name: 'Адрес',
     text: 'г. Кемерово, ул. Марковцева д. 24',
     link: false
@@ -21,7 +21,7 @@ const contentCards = ref([
     link: true
   },
   {
-    image: new URL("@/assets/images/contacts/instagram.jpg", import.meta.url),
+    image: new URL("@/assets/images/contacts/instagram.png", import.meta.url),
     name: 'Instagram',
     text: 'https://instagram.com/alina92_nails',
     link: true

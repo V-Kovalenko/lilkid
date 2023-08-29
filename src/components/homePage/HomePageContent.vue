@@ -40,9 +40,14 @@ onMounted(() => {
     document.removeEventListener('keydown', handleEscKey)
   })
 })
-
-
-/*-----------*/
+/*ДОБАВЛЕНИЕ ВКОРЗИНУ*/
+const testFun = (product) => {
+  console.log(product)
+}
+const emitFunctions = (product) => {
+  testFun(product)
+}
+/*-----ДОБАВЛЕНИЕ ВКОРЗИНУ------*/
 </script>
 
 <template>
@@ -55,6 +60,7 @@ onMounted(() => {
     <AboutProduct
         v-if="modalWindowToggle"
         @closeModalWindow="closeModalWindow"
+        @addToBasket="emitFunctions(noveltiesItem.selectedPhotoId)"
 
     >
 

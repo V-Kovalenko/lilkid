@@ -14,7 +14,7 @@ const emitChangeToggleAboutProduct = () => {
 
 <template>
   <div class="novelties__girls">
-    <h2>Для девочек</h2>
+    <h2 class="novelties__h2">Для девочек</h2>
     <div class="novelties__container">
       <div
           class="novelties__content"
@@ -55,6 +55,9 @@ const emitChangeToggleAboutProduct = () => {
 
 <style scoped lang="scss">
 .novelties {
+  &__h2 {
+    text-shadow: 1px 1px 16px rgba(0, 0, 0, 1);
+  }
   &__price {
     display: flex;
     justify-content: center;

@@ -70,8 +70,13 @@ onMounted(() => {
     >
 
       <template #title>{{ selectedProductMainContent.title }}</template>
-      <template #size>{{ selectedProductMainContent.size }}</template>
-      <template #price>Цена: {{ selectedProductMainContent.price }} {{ selectedProductMainContent.unit }}
+      <template #size>
+        <h4 style="display: inline">Размер в наличии: </h4>
+        <span>{{ selectedProductMainContent.size.join(' ,') }}</span>
+      </template>
+      <template #price>
+        <h4 style="display: inline">Цена: </h4>
+        <span>{{ selectedProductMainContent.price }} {{ selectedProductMainContent.unit }}</span>
       </template>
       <!--      :class="image.photoSize? 'novelties__img novelties__img_info': 'novelties__img'"-->
       <template #img>

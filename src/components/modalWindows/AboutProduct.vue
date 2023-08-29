@@ -3,10 +3,13 @@
 import Buttons from "@/components/ui/Buttons.vue";
 
 
-const emit = defineEmits(['closeModalWindow'])
+const emit = defineEmits(['closeModalWindow', 'addToBasket'])
 
 const closeModalWindow = () => {
   emit('closeModalWindow')
+}
+const emitAddToBasket = () => {
+  emit('addToBasket')
 }
 
 </script>
@@ -42,7 +45,7 @@ const closeModalWindow = () => {
             btnTitle="Назад"
             @click="closeModalWindow"
         />
-        <Buttons btnTitle="Добавить в корзину" :addToCart="true"/>
+        <Buttons btnTitle="Добавить в корзину" :addToCart="true" @click="emitAddToBasket"/>
 
       </div>
     </div>
@@ -78,7 +81,7 @@ const closeModalWindow = () => {
   'header header'
   'main main'
   'footer footer';
-    background: $background-color;
+    background: $background-color-app;
     border-radius: 1rem;
     font-size: 1.23rem;
     overflow-y: auto;

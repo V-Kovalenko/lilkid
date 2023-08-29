@@ -17,7 +17,7 @@ const noveltiesItem = useItemNovelties()
 
 <template>
   <div class="novelties__boys">
-    <h2>Для мальчиков</h2>
+    <h2 class="novelties__h2">Для мальчиков</h2>
     <div class="novelties__container">
       <div class="novelties__content" v-for="(image, index) in noveltiesItem.itemNoveltiesBoys"
 
@@ -52,6 +52,10 @@ const noveltiesItem = useItemNovelties()
 <style scoped lang="scss">
 .novelties__boys {
   box-sizing: border-box;
+
+  .novelties__h2 {
+    text-shadow: 1px 1px 16px rgba(0, 0, 0, 1);
+  }
 
   .novelties__price {
     display: flex;

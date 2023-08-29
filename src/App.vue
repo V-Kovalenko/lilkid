@@ -14,7 +14,8 @@ import AppHeader from "@/components/layout/AppHeader.vue";
 
 <style scoped lang="scss">
 .layout {
-  background: linear-gradient(to right, #e295f1, #8012de);
+  background: linear-gradient(to right, #e7c8f1, #bc81f3);
+  //background: linear-gradient(to right, #e295f1, #8012de);
   position: relative;
   max-width: 1920px;
   width: 100%;
