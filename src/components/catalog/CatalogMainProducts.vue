@@ -1,6 +1,6 @@
 <script setup>
 const emit = defineEmits(['product'])
-const sendEmit = () => {
+const emitProduct = () => {
   emit('product')
 }
 </script>
@@ -9,7 +9,7 @@ const sendEmit = () => {
   <div class="catalogMainProducts">
     <div class="catalogMainProducts__content">
 
-      <div class="catalogMainProducts__img" @click="sendEmit">
+      <div class="catalogMainProducts__img" @click="emitProduct">
         <slot name="img">Изображение</slot>
       </div>
 

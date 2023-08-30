@@ -1,21 +1,23 @@
 <script setup>
 
 import Buttons from "@/components/ui/Buttons.vue";
+import {useItemNovelties} from "@/stores/ItemsNovelties";
+const novelties = useItemNovelties()
 
+const emit = defineEmits(['emitCloseModalWindow', 'addToBasket'])
 
-const emit = defineEmits(['closeModalWindow', 'addToBasket'])
-
-const closeModalWindow = () => {
-  emit('closeModalWindow')
+const emitCloseModalWindow = () => {
+  emit('emitCloseModalWindow')
 }
 const emitAddToBasket = () => {
   emit('addToBasket')
 }
 
+
 </script>
 
 <template>
-  <div class="about-product" @click.self="closeModalWindow">
+  <div class="about-product" @click.self="emitCloseModalWindow">
     <div class="about-product__content">
       <div class="about-product__header">
         <div class="about-product__title">
@@ -23,7 +25,7 @@ const emitAddToBasket = () => {
             <slot name="title"></slot>
           </h2>
         </div>
-        <Buttons btnTitle="Закрыть" @click="closeModalWindow"/>
+        <Buttons btnTitle="Закрыть" @click="emitCloseModalWindow"/>
       </div>
       <div class="about-product__main">
         <div class="about-product__img">
@@ -43,7 +45,7 @@ const emitAddToBasket = () => {
       <div class="about-product__footer">
         <Buttons
             btnTitle="Назад"
-            @click="closeModalWindow"
+            @click="emitCloseModalWindow"
         />
         <Buttons btnTitle="Добавить в корзину" :addToCart="true" @click="emitAddToBasket"/>
 

@@ -40,14 +40,11 @@ onMounted(() => {
     document.removeEventListener('keydown', handleEscKey)
   })
 })
-/*ДОБАВЛЕНИЕ ВКОРЗИНУ*/
-const testFun = (product) => {
-  console.log(product)
+/*ДОБАВЛЕНИЕ ВКОРЗИНУ---<<<<*/
+const addToBasketProducts = (product) => {
+  noveltiesItem.getBasketProducts(product)
 }
-const emitFunctions = (product) => {
-  testFun(product)
-}
-/*-----ДОБАВЛЕНИЕ ВКОРЗИНУ------*/
+/*-----ДОБАВЛЕНИЕ ВКОРЗИНУ--->>>>---*/
 </script>
 
 <template>
@@ -59,8 +56,9 @@ const emitFunctions = (product) => {
 
     <AboutProduct
         v-if="modalWindowToggle"
-        @closeModalWindow="closeModalWindow"
-        @addToBasket="emitFunctions(noveltiesItem.selectedPhotoId)"
+        @emitCloseModalWindow="closeModalWindow"
+        @addToBasket="addToBasketProducts(noveltiesItem.selectedPhotoId)"
+
 
     >
 

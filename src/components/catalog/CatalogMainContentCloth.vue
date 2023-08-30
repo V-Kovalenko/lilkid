@@ -42,10 +42,10 @@ const zoomImageOpen = (item) => {
   item.photoSize = !item.photoSize
 }
 
-function emitFunctions(product) {
-  getImageCatalogMainProducts(product)
-  openModalWindow()
-}
+// function emitFunctions(product) {
+//   getImageCatalogMainProducts(product)
+//   openModalWindow()
+// }
 
 onMounted(() => {
   const handleEscKey = (event) => {
@@ -59,14 +59,21 @@ onMounted(() => {
     document.removeEventListener('keydown', handleEscKey)
   })
 })
+
+/*add to basket products start*/
+const addToBasketProducts = (product) => {
+ noveltiesItem.getBasketProducts(product)
+}
+/*add to basket products end*/
 </script>
 
 <template>
   <div class="catalogMainContentCloth">
     <AboutProduct
         v-if="modalWindowToggle"
-        @closeModalWindow="closeModalWindow"
+        @emitCloseModalWindow="closeModalWindow"
         class="catalogMainContentCloth__aboutProduct"
+        @addToBasket="addToBasketProducts(selectedProductMainContent)"
     >
 
       <template #title>{{ selectedProductMainContent.title }}</template>
@@ -102,8 +109,8 @@ onMounted(() => {
 
     <CatalogMainProducts
         v-for="product in itemAll"
-        @product=emitFunctions(product)
-
+        @product=getImageCatalogMainProducts(product)
+        @click="openModalWindow"
     >
       <template #img>
         <img :src="product.products.url" alt="Photo" class="catalogMainContentCloth__img">

@@ -127,6 +127,12 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
             photoSize: false,
         }
     ])
+    /*add basket products >>>>> */
+    const basketProducts = ref([])
+    const getBasketProducts = (product) => {
+        basketProducts.value.push(product)
+    }
+    /*add basket products <<<<<<*/
     const showItemId = ref(null)
     const showTooltipClass = ref(false)
     const selectedPhotoId = ref(null)
@@ -157,7 +163,8 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
 
     return {
         itemNoveltiesGirls, itemNoveltiesBoys, showItemId,
-        showTooltip, hideTooltip, showTooltipClass, selectedPhotoId, getIdPhoto, getItemsByCategories
+        showTooltip, hideTooltip, showTooltipClass, selectedPhotoId, getIdPhoto, getItemsByCategories,
+        basketProducts, getBasketProducts
     }
 })
 
