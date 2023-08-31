@@ -20,6 +20,14 @@ const props = defineProps({
   btnDefault: {
     type: Boolean,
     default: false
+  },
+  btnGoToBasket: {
+    type: Boolean,
+    default: false
+  },
+  btnIncrementAndDecrement: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -29,6 +37,8 @@ const buttonStyle = computed(() => {
     'btn__disabled': props.disabled,
     'btn__addToCart': props.addToCart,
     'default': props.btnDefault,
+    'btn__GoToBasket': props.btnGoToBasket,
+    'btn__incrementAndDecrement': props.btnIncrementAndDecrement
 
   }
 })
@@ -67,6 +77,12 @@ const buttonStyle = computed(() => {
     &:hover {
       background: $hover;
     }
+  }
+  &__incrementAndDecrement {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+
   }
 }
 

@@ -9,6 +9,7 @@ import LargeImg from "@/components/modalWindows/LargeImg.vue";
 const noveltiesItem = useItemNovelties()
 const modalWindowToggle = ref(false)
 
+
 const zoomImage = (item) => {
   item.photoSize = !item.photoSize
 }
@@ -45,6 +46,14 @@ const addToBasketProducts = (product) => {
   noveltiesItem.getBasketProducts(product)
 }
 /*-----ДОБАВЛЕНИЕ ВКОРЗИНУ--->>>>---*/
+
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ----->>>>*/
+function getFormattedSize(sizes) {
+  return sizes.map((it) =>`${it.size} - ${it.count} шт`).join(', ')
+}
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ-----<<<<<*/
+
+
 </script>
 
 <template>
@@ -53,20 +62,19 @@ const addToBasketProducts = (product) => {
       <h1 class="novelties__h1">Новинки</h1>
     </div>
 
+    <!--    @addToBasket="noveltiesItem.getBasketProducts(noveltiesItem.selectedPhotoId)"-->
 
     <AboutProduct
         v-if="modalWindowToggle"
         @emitCloseModalWindow="closeModalWindow"
         @addToBasket="addToBasketProducts(noveltiesItem.selectedPhotoId)"
-
-
     >
 
       <template #title>{{ noveltiesItem.selectedPhotoId.title }}</template>
 
       <template #size>
         <h4 style="display: inline">Размер: </h4>
-        <span>{{ noveltiesItem.selectedPhotoId.size.join(', ') }}</span>
+        <span>{{getFormattedSize(noveltiesItem.selectedPhotoId.size)}}</span>
       </template>
 
       <template #price>

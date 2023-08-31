@@ -29,9 +29,6 @@ const emitProduct = () => {
 @import "@/assets/scss/color";
 
 .catalogMainProducts {
-  //background-color: $background-color;
-  //width: 500px;
-  //padding: 0 1rem;
   &__content {
     display: flex;
     flex-direction: column;

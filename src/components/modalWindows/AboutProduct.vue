@@ -2,9 +2,11 @@
 
 import Buttons from "@/components/ui/Buttons.vue";
 import {useItemNovelties} from "@/stores/ItemsNovelties";
-const novelties = useItemNovelties()
+import {ref} from "vue";
 
-const emit = defineEmits(['emitCloseModalWindow', 'addToBasket'])
+const novelties = useItemNovelties()
+const emit = defineEmits(['emitCloseModalWindow', 'addToBasket', 'goToBasket'])
+const buttonClicked = ref(false)
 
 const emitCloseModalWindow = () => {
   emit('emitCloseModalWindow')
@@ -12,7 +14,16 @@ const emitCloseModalWindow = () => {
 const emitAddToBasket = () => {
   emit('addToBasket')
 }
-
+const emitGoToBasket = () => {
+  emit('goToBasket')
+}
+const toggleButton = () => {
+  buttonClicked.value = true
+}
+const clickFunctions = () => {
+  emitAddToBasket()
+  toggleButton()
+}
 
 </script>
 
@@ -35,9 +46,9 @@ const emitAddToBasket = () => {
           <p>
             <slot name="price"/>
           </p>
-          <p>
+          <div class="about-product__size">
             <slot name="size"/>
-          </p>
+          </div>
         </div>
 
       </div>
@@ -47,7 +58,11 @@ const emitAddToBasket = () => {
             btnTitle="Назад"
             @click="emitCloseModalWindow"
         />
-        <Buttons btnTitle="Добавить в корзину" :addToCart="true" @click="emitAddToBasket"/>
+        <RouterLink to="/basket">
+          <Buttons v-if="buttonClicked" btnTitle="Перейти в корзину" :btnGoToBasket="false" @click="toggleButton"/>
+        </RouterLink>
+
+        <Buttons v-if="!buttonClicked" btnTitle="Добавить в корзину" :addToCart="true" @click="clickFunctions"/>
 
       </div>
     </div>
@@ -119,11 +134,17 @@ const emitAddToBasket = () => {
     align-items: start;
     grid-area: data;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 1);
-    //height: max-content;
+    height: max-content;
     padding: 1rem;
     cursor: default;
     margin-bottom: 1rem;
-    width: max-content;
+    width: 320px;
+
+  }
+
+  &__size {
+    display: flex;
+    gap: 10px;
   }
 
   &__img {

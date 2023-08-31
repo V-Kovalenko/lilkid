@@ -1,4 +1,4 @@
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {defineStore} from 'pinia'
 
 let id = 0
@@ -19,6 +19,12 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
                         photoSize: false,
                         photoDisabled: true
                     },
+                    {
+                        url: new URL("@/assets/images/imageGirls/img1/photo2.jpg", import.meta.url),
+                        photoSize: false,
+                        photoDisabled: true
+                    },
+
                 ]
             },
             products: {
@@ -35,13 +41,23 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
                         photoSize: false,
                         photoDisabled: true
                     },
+                    {
+                        url: new URL("@/assets/images/imageGirls/img1/photo2.jpg", import.meta.url),
+                        photoSize: false,
+                        photoDisabled: true
+                    },
                 ]
             },
             title: 'Кофта',
             alt: 'Фотография 1',
             price: 1700,
             unit: '₽',
-            size: [92, 98, 104, 116],
+            size: [
+                {count:1, size: 98},
+                {count:4, size: 104},
+                {count:3, size: 116},
+                {count:1, size: 120}
+            ],
             photoSize: false,
         }
     ])
@@ -83,7 +99,12 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
             alt: 'Фотография 1',
             price: 1500,
             unit: '₽',
-            size: [92, 98, 104, 116],
+            size: [
+                {count:1, size: 98},
+                {count:4, size: 104},
+                {count:3, size: 116},
+                {count:1, size: 120}
+            ],
             photoSize: false,
         },
         {
@@ -123,7 +144,12 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
             alt: 'Фотография 1',
             price: 7500,
             unit: '₽',
-            size: [92, 98, 104, 116],
+            size: [
+                {count:1, size: 98},
+                {count:4, size: 104},
+                {count:3, size: 116},
+                {count:1, size: 120}
+            ],
             photoSize: false,
         }
     ])
@@ -131,7 +157,14 @@ export const useItemNovelties = defineStore('ItemNovelties', () => {
     const basketProducts = ref([])
     const getBasketProducts = (product) => {
         basketProducts.value.push(product)
+        window.localStorage.setItem('CART', JSON.stringify(basketProducts.value))
     }
+    onMounted(() => {
+        if (basketProducts) {
+            basketProducts.value = JSON.parse(localStorage.getItem('CART'))
+        }
+
+    })
     /*add basket products <<<<<<*/
     const showItemId = ref(null)
     const showTooltipClass = ref(false)

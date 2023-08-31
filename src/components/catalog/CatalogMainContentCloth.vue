@@ -19,19 +19,32 @@ const emit = defineEmits(['emitSortProduct'])
 const sendEmit = () => {
   emit('emitSortProduct')
 }
-
+/*--ДАННЫЕ ЭЛЕМЕНТА -->>>>>*/
 const selectedProductMainContent = ref(null)
+/*--ДАННЫЕ ЭЛЕМЕНТА -- <<<<<*/
+
 const modalWindowToggle = ref(false)
+/*--ПОЛУЧЕНИЕ ЭЛЕМЕНТА -->>>>*/
 const getImageCatalogMainProducts = (product) => {
   selectedProductMainContent.value = product
 }
+/*--ПОЛУЧЕНИЕ ЭЛЕМЕНТА --<<<<*/
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ----->>>>*/
+function getFormattedSize() {
+    return selectedProductMainContent.value.size.map((it) =>`${it.size} - ${it.count} шт`).join(', ')
+}
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ-----<<<<<*/
 
+/*--ОТКРЫТЬ И ЗАКРЫТЬ МОДАЛЬНОЕ ОКНО ABOUT-PRODUCT-->>>>*/
 const openModalWindow = () => {
   modalWindowToggle.value = !modalWindowToggle.value
 }
 const closeModalWindow = () => {
   modalWindowToggle.value = !modalWindowToggle.value
 }
+/*--ОТКРЫТЬ И ЗАКРЫТЬ МОДАЛЬНОЕ ОКНО ABOUT-PRODUCT--<<<<*/
+
+/*--УВЕЧИТЬ И ЗАКРЫТЬ ИЗОБРАЖЕНИЕ В МОДАЛЬНОМ ОКНЕ-->>>>*/
 const zoomImageCLose = (item) => {
   if (item.photoSize) {
     item.photoSize = !item.photoSize
@@ -41,12 +54,9 @@ const zoomImageCLose = (item) => {
 const zoomImageOpen = (item) => {
   item.photoSize = !item.photoSize
 }
+/*--УВЕЧИТЬ И ЗАКРЫТЬ ИЗОБРАЖЕНИЕ В МОДАЛЬНОМ ОКНЕ--<<<<*/
 
-// function emitFunctions(product) {
-//   getImageCatalogMainProducts(product)
-//   openModalWindow()
-// }
-
+/*-- ЗАКРЫТЬ МОАЛЬНОЕ ОКНО НА КНОПКУ ESCAPE-->>>>*/
 onMounted(() => {
   const handleEscKey = (event) => {
     if (event.key === 'Escape') {
@@ -59,6 +69,8 @@ onMounted(() => {
     document.removeEventListener('keydown', handleEscKey)
   })
 })
+/*-- ЗАКРЫТЬ МОАЛЬНОЕ ОКНО НА КНОПКУ ESCAPE--<<<<*/
+
 
 /*add to basket products start*/
 const addToBasketProducts = (product) => {
@@ -78,8 +90,9 @@ const addToBasketProducts = (product) => {
 
       <template #title>{{ selectedProductMainContent.title }}</template>
       <template #size>
-        <h4 style="display: inline">Размер в наличии: </h4>
-        <span>{{ selectedProductMainContent.size.join(' ,') }}</span>
+        <h4 style="display: inline">Размер: </h4>
+<!--        <span>{{ selectedProductMainContent.size.join(' ,') }}</span>-->
+        <span>{{ getFormattedSize()}}</span>
       </template>
       <template #price>
         <h4 style="display: inline">Цена: </h4>

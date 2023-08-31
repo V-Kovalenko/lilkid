@@ -13,6 +13,7 @@ const emitChangeToggleAboutProduct = () => {
   emit('emitChangeToggleAboutProduct')
 }
 const noveltiesItem = useItemNovelties()
+
 </script>
 
 <template>

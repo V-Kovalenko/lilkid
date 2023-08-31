@@ -8,11 +8,16 @@ const props = defineProps({
   }
 })
 const size = ref(props.image.join(', '))
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ----->>>>*/
+function getFormattedSize() {
+  return props.image.map(it => it.size).join(', ')
+}
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ-----<<<<<*/
 </script>
 
 <template>
   <div class="tooltip">
-    Размеры: {{ size }}
+    Размеры: {{ getFormattedSize() }}
   </div>
 </template>
 
