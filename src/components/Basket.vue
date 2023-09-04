@@ -1,9 +1,25 @@
 <script setup>
 import {useItemNovelties} from "@/stores/ItemsNovelties";
 import Buttons from "@/components/ui/Buttons.vue";
+import {onMounted} from "vue";
 
 const noveltiesItem = useItemNovelties()
 console.log('noveltiesItem.basketProducts: ', noveltiesItem.basketProducts)
+
+/*--- удаление товара из корзины--->>>*/
+const deleteProduct = (product, index) => {
+  noveltiesItem.basketProducts.splice(index, 1)
+  window.localStorage.setItem('CART', JSON.stringify(noveltiesItem.basketProducts))
+}
+onMounted(() => {
+  noveltiesItem.basketProducts = JSON.parse(localStorage.getItem('CART'))
+})
+/*--- удаление товара из корзины---<<<*/
+
+const test = (count) => {
+  console.log(count)
+  // return noveltiesItem.basketProducts.map(it => it.selectedSize)
+}
 
 </script>
 
@@ -13,26 +29,31 @@ console.log('noveltiesItem.basketProducts: ', noveltiesItem.basketProducts)
       <div class="basket__header">
         <h2 class="basket__h2">Корзина</h2>
       </div>
-      <div class="basket__content" v-for="product in noveltiesItem.basketProducts">
+      <div class="basket__content" v-for="(product, index) in noveltiesItem.basketProducts" :key="index">
         <div class="basket__products">
 
           <div class="basket__products-card">
 
             <div class="basket__img">
-              <slot name="img">
-                <img :src="product.products.url" alt="img">
-              </slot>
+              <img :src="product.products.url" alt="img">
             </div>
 
             <div class="basket__products-card-title">
-              <slot name="title"><h4>{{ product.title }}</h4></slot>
+              <h4>{{ product.title }}</h4>
+              <p>{{ product.description }}</p>
+              <h4 style="display: inline">Размер: </h4>
+              <span>{{ product.selectedSize }} </span>
             </div>
 
             <Buttons btnTitle="-" :btnIncrementAndDecrement="true" class="basket__btn-incrementAndDecrement"/>
-            <span>0</span>
+            <div v-for="(count, idx) in product.size">
+<!--              <span >{{product.size === noveltiesItem.basketProducts.selectedSize}</span>-->
+              <span >{{test(count)}}</span>
+            </div>
             <Buttons btnTitle="+" :btnIncrementAndDecrement="true" class="basket__btn-incrementAndDecrement"/>
             <div class="basket__products-card-price">
-              <slot name="price">{{ product.price }} {{ product.unit }}</slot>
+              <p>{{ product.price }} {{ product.unit }}</p>
+              <Buttons :btnDeleteProduct="true" @click="deleteProduct(product, index)"/>
             </div>
 
           </div>
@@ -101,7 +122,6 @@ console.log('noveltiesItem.basketProducts: ', noveltiesItem.basketProducts)
     padding: 1rem;
 
 
-
   }
 
   &__img {
@@ -152,6 +172,7 @@ console.log('noveltiesItem.basketProducts: ', noveltiesItem.basketProducts)
   &__button {
 
   }
+
   &__btn-incrementAndDecrement {
     display: flex;
     justify-content: center;

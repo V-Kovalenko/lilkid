@@ -22,7 +22,6 @@ const novelties = useItemNovelties()
 const route = useRoute()
 const categoriesCatalog = ref(novelties.getItemsByCategories(route.fullPath))
 const beginCategoriesCatalog = ref([...categoriesCatalog.value])
-console.log('beginCategoriesCatalog: ,', beginCategoriesCatalog)
 /*----В зависимости от url открывается компонент---<<<<*/
 
 

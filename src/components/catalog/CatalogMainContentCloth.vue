@@ -4,6 +4,9 @@ import CatalogMainProducts from "@/components/catalog/CatalogMainProducts.vue";
 import {useItemNovelties} from "@/stores/ItemsNovelties";
 import AboutProduct from "@/components/modalWindows/AboutProduct.vue";
 import LargeImg from "@/components/modalWindows/LargeImg.vue";
+import Buttons from "@/components/ui/Buttons.vue";
+import AddProduct from "@/components/modalWindows/ProductAddedToBasket.vue";
+import ProductAddedToBasket from "@/components/modalWindows/ProductAddedToBasket.vue";
 
 const noveltiesItem = useItemNovelties()
 const props = defineProps({
@@ -29,10 +32,7 @@ const getImageCatalogMainProducts = (product) => {
   selectedProductMainContent.value = product
 }
 /*--ПОЛУЧЕНИЕ ЭЛЕМЕНТА --<<<<*/
-/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ----->>>>*/
-function getFormattedSize() {
-    return selectedProductMainContent.value.size.map((it) =>`${it.size} - ${it.count} шт`).join(', ')
-}
+
 /*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ-----<<<<<*/
 
 /*--ОТКРЫТЬ И ЗАКРЫТЬ МОДАЛЬНОЕ ОКНО ABOUT-PRODUCT-->>>>*/
@@ -72,11 +72,34 @@ onMounted(() => {
 /*-- ЗАКРЫТЬ МОАЛЬНОЕ ОКНО НА КНОПКУ ESCAPE--<<<<*/
 
 
-/*add to basket products start*/
+/*---add to basket products --->>>>*/
 const addToBasketProducts = (product) => {
  noveltiesItem.getBasketProducts(product)
 }
-/*add to basket products end*/
+/**/
+const addSizeProductsToBasket = (size) => {  // добавление в корзину размера при клике на кнопки размеров в
+  selectedProductMainContent.value.selectedSize = size    // в компоненте aboutProduct
+
+}
+/*add to basket products ---<<<*/
+
+/*---ИТЕРИРОВАНИЕ МАССИВА РАЗМЕРОВ----->>>>*/
+function getFormattedSize() { //получение выбранного размера каждого товара при добавлении в корзину
+  return selectedProductMainContent.value.size.map((it) =>`${it.size}`)
+}
+
+/*--ДОБАВЛЕНИЕ КЛАССА ACTIVE КНОПКАМ SIZE--->>>>*/
+const isActive = ref(null)
+const handleActiveButtonSize = (index) => {
+  isActive.value = index
+}
+const multiFunctionsFromAbout = (size, index) => {
+  handleActiveButtonSize(index)
+  addSizeProductsToBasket(size, index)
+  // noveltiesItem.getSizeFromButtonSize(size, index)
+}
+/*--ДОБАВЛЕНИЕ КЛАССА ACTIVE КНОПКАМ SIZE---<<<<*/
+
 </script>
 
 <template>
@@ -89,16 +112,26 @@ const addToBasketProducts = (product) => {
     >
 
       <template #title>{{ selectedProductMainContent.title }}</template>
-      <template #size>
+      <template #size >
         <h4 style="display: inline">Размер: </h4>
-<!--        <span>{{ selectedProductMainContent.size.join(' ,') }}</span>-->
-        <span>{{ getFormattedSize()}}</span>
+        <button
+            :class="['catalogMainContentCloth__aboutProduct-btn-size',{'catalogMainContentCloth__aboutProduct-btn-active': isActive === index}]"
+            v-for="(size,index) in getFormattedSize()"
+            @click="multiFunctionsFromAbout(size,index)"
+            :key="index"
+        >
+          {{size}}
+        </button>
       </template>
       <template #price>
         <h4 style="display: inline">Цена: </h4>
         <span>{{ selectedProductMainContent.price }} {{ selectedProductMainContent.unit }}</span>
       </template>
       <!--      :class="image.photoSize? 'novelties__img novelties__img_info': 'novelties__img'"-->
+      <template #description>
+        <h4 style="display: inline">Описание: </h4>
+        <span>{{selectedProductMainContent.description}}</span>
+      </template>
       <template #img>
         <div v-for="image in selectedProductMainContent.products.arrProducts" :key="image.url"
 
@@ -140,12 +173,30 @@ const addToBasketProducts = (product) => {
 .catalogMainContentCloth {
   display: flex;
   flex-wrap: wrap;
-  //height: 10vh;
-  &__aboutProduct {
-  }
 
-  //&__img {
-  //  box-shadow: $shadow;
-  //}
+  &__aboutProduct {
+
+  }
+  &__aboutProduct-btn-size {
+    border-radius: .2rem;
+    box-shadow: inset 0 0 0 1px #fff;
+    border: 1px solid transparent;
+    padding: 3px;
+    margin-right: 3px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      border: 1px solid #cb11ab;
+      box-shadow: inset 0 0 0 1px #cb11ab;
+
+    }
+  }
+  &__aboutProduct-btn-active {
+    border: 1px solid #cb11ab;
+    box-shadow: inset 0 0 0 1px #cb11ab;
+
+  }
 }
+
 </style>

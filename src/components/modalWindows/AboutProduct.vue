@@ -2,11 +2,15 @@
 
 import Buttons from "@/components/ui/Buttons.vue";
 import {useItemNovelties} from "@/stores/ItemsNovelties";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import ProductAddedToBasket from "@/components/modalWindows/ProductAddedToBasket.vue";
+import NeedToChooseSize from "@/components/modalWindows/NeedToChooseSize.vue";
+
 
 const novelties = useItemNovelties()
 const emit = defineEmits(['emitCloseModalWindow', 'addToBasket', 'goToBasket'])
-const buttonClicked = ref(false)
+const disabledButtonAddToBasket = ref(true)
+const buttonClicked = ref(false) //state переключение кнопок добавить - перейти
 
 const emitCloseModalWindow = () => {
   emit('emitCloseModalWindow')
@@ -14,11 +18,10 @@ const emitCloseModalWindow = () => {
 const emitAddToBasket = () => {
   emit('addToBasket')
 }
-const emitGoToBasket = () => {
-  emit('goToBasket')
-}
-const toggleButton = () => {
+
+const toggleButton = () => {  // изменить кнопку добавить на перейти в корзину
   buttonClicked.value = true
+
 }
 const clickFunctions = () => {
   emitAddToBasket()
@@ -28,6 +31,7 @@ const clickFunctions = () => {
 </script>
 
 <template>
+
   <div class="about-product" @click.self="emitCloseModalWindow">
     <div class="about-product__content">
       <div class="about-product__header">
@@ -49,6 +53,9 @@ const clickFunctions = () => {
           <div class="about-product__size">
             <slot name="size"/>
           </div>
+          <div class="about-product__description">
+            <slot name="description"/>
+          </div>
         </div>
 
       </div>
@@ -62,7 +69,13 @@ const clickFunctions = () => {
           <Buttons v-if="buttonClicked" btnTitle="Перейти в корзину" :btnGoToBasket="false" @click="toggleButton"/>
         </RouterLink>
 
-        <Buttons v-if="!buttonClicked" btnTitle="Добавить в корзину" :addToCart="true" @click="clickFunctions"/>
+        <Buttons
+            v-if="!buttonClicked"
+            btnTitle="Добавить в корзину"
+            :addToCart="true"
+            @click="clickFunctions"
+        />
+
 
       </div>
     </div>
@@ -137,14 +150,21 @@ const clickFunctions = () => {
     height: max-content;
     padding: 1rem;
     cursor: default;
-    margin-bottom: 1rem;
+    //margin-bottom: 1rem;
     width: 320px;
+    max-width: 350px;
+    flex-wrap: wrap;
 
   }
 
   &__size {
     display: flex;
     gap: 10px;
+    margin-bottom: 5px;
+  }
+
+  &__description {
+    font-size: 1rem;
   }
 
   &__img {
@@ -161,5 +181,9 @@ const clickFunctions = () => {
     display: flex;
     justify-content: space-between;
   }
+}
+
+.productAddedToBasket, .needToChooseSize {
+  position: absolute;
 }
 </style>

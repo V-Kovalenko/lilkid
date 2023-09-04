@@ -28,7 +28,11 @@ const props = defineProps({
   btnIncrementAndDecrement: {
     type: Boolean,
     default: false
-  }
+  },
+  btnDeleteProduct: {
+    type: Boolean,
+    default: false
+  },
 })
 
 const buttonStyle = computed(() => {
@@ -38,8 +42,8 @@ const buttonStyle = computed(() => {
     'btn__addToCart': props.addToCart,
     'default': props.btnDefault,
     'btn__GoToBasket': props.btnGoToBasket,
-    'btn__incrementAndDecrement': props.btnIncrementAndDecrement
-
+    'btn__incrementAndDecrement': props.btnIncrementAndDecrement,
+    'btn__deleteProduct': props.btnDeleteProduct,
   }
 })
 
@@ -83,6 +87,13 @@ const buttonStyle = computed(() => {
     height: 32px;
     border-radius: 8px;
 
+  }
+  &__deleteProduct {
+    background-color: red;
+  }
+  &__disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }
 
